@@ -1,36 +1,83 @@
 # XLNing
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <script type="text/javascript">
-        function count(){
-            var a = parseInt(document.getElementById("tex1").value);
-            var b = parseInt(document.getElementById("tex2").value);
-            var selectSign = document.getElementById("select").value;
-
-            switch (selectSign)
+        function operation() { //获取文本框中的值并进行判断和运算
+            var x = document.getElementById("var_x").value;
+            var y = document.getElementById("var_y").value;
+            var operator = document.getElementById("operator").value;
+            var answer;
+            if(x == "" || y == "")
             {
-                case '+': answer = a+b;break;
-                case '-': answer = a-b;break;
-                case '*': answer = a*b;break;
-                case '/': answer = a/b;
+                alert("请输入正整数后进行计算操作！");
+            } else{
+                x = parseInt(x);
+                y = parseInt(y);
+                switch(operator)
+                {
+                    case '+':
+                        answer = x + y;
+                        break;
+                    case '-':
+                        answer = x - y;
+                        break;
+                    case '*':
+                        answer = x * y;
+                        break;
+                    case '/':
+                        if(y == 0)
+                        {
+                            alert("被除数不能为0，请重新输入！");
+                            break;
+                        }else{
+                            answer = x / y;
+                            break;
+                        }
+                }
+                document.getElementById("result").value = answer;
             }
-            document.getElementById("fruit").value = answer;
+        }
+
+        function clean(){ //文本框中的值清空，操作符恢复为“+”
+           document.getElementById("var_x").value = '';
+           document.getElementById("var_y").value = '';
+            document.getElementById("operator").value = '+';
+           document.getElementById("result").value = '';
         }
     </script>
 </head>
 <body>
-<input type="text" id="tex1" />
-<select id="select">
-    <option value="+">+</option>
-    <option value="-">-</option>
-    <option value="*">*</option>
-    <option value="/">/</option>
-</select>
-<input type="text" id="tex2" />
-<input type="button" value=" = " onclick="count()" />
-<input type="text" id="fruit" onclick="count()" />
+    <table border = '1' align="center">
+        <tr>
+            <td align="right">请输入一个正整数x:</td>
+            <td><input type="text " name = "var_xx" id="var_x"></td>
+        </tr>
+        <tr>
+            <td align="right">请输入一个正整数y:</td>
+            <td><input type="text " name = "var_yy" id = "var_y"></td>
+        </tr>
+        <tr>
+            <td align="right">请选择操作符:</td>
+            <td>
+                <select id="operator">
+                    <option name="operators"  value ="+" selected>+</option>
+                    <option name="operators"  value ="-">-</option>
+                    <option name="operators"  value ="*">*</option>
+                    <option name="operators"  value ="/">/</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">运算结果为:</td>
+            <td><input type="text " name = "result_n" id = "result"></td>
+        </tr>
+        <tr>
+            <td colspan="2"  align="center">
+                <button type="button" id="operationbtn" onclick="operation();">运算</button>
+                <input type="button" id="clearbtn" value="清空" onclick="clean();"/>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
